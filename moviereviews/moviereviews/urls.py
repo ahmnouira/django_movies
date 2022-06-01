@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', movieViews.home), 
     # "about" Page not found (404)
-    path("about/", movieViews.about)
+    path("about/", movieViews.about), 
+    path("contact", movieViews.contact)
 ]

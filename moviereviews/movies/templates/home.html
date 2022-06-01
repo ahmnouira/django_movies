@@ -13,10 +13,15 @@
   </head>
   <body>
     <div class="container">
-      <h1 style="color: red; font-size: 25px">
-        Welcome to Home Page, {{ name }}
-      </h1>
-      <h2>This is the full home page</h2>
+      <form action="">
+        <div class="mb-3">
+          <label for="searchMovie" class="form-label">
+            Search for Movie:
+          </label>
+          <input type="text" class="form-control" name="searchMovie" />
+        </div>
+        <button type="submit" class="btn btn- primary">Search</button>
+      </form>
     </div>
   </body>
 </html>

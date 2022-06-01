@@ -4,7 +4,10 @@ from django.shortcuts import render
 # Create your views here.
 
 def home(request: HttpRequest): 
-    return render(request, "home.html", {'name': 'Ahmed Nouira'})
+    return render(request, "home.html")
 
 def about(request: HttpRequest): 
-    return HttpResponse('<h3>Welcome to About Page</h3>')
+    return render(request, "about.html", {'name': "Ahmed Nouira", 'page_name': "About"})
+
+def contact(request: HttpRequest): 
+        return HttpResponse('<h3 style="color:green;">Welcome to Contact Page</h3>')
