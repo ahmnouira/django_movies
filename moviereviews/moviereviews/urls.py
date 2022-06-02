@@ -22,5 +22,6 @@ urlpatterns = [
     path('', movieViews.home), 
     # "about" Page not found (404)
     path("about/", movieViews.about), 
-    path("contact", movieViews.contact)
+    path("contact", movieViews.contact),
+    path("signup", movieViews.signup, name="signup")
 ]

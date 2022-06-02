@@ -13,3 +13,11 @@ def about(request: HttpRequest):
 
 def contact(request: HttpRequest): 
         return HttpResponse('<h3 style="color:green;">Welcome to Contact Page</h3>')
+
+
+def signup(request: HttpRequest):
+    email = request.GET.get('email')
+    return render(request, "signup.html", {'email': email}) 
+
+
+    
