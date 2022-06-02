@@ -19,9 +19,9 @@ from movies import views as movieViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', movieViews.home), 
+    path('', movieViews.home, name="home"), 
     # "about" Page not found (404)
-    path("about/", movieViews.about), 
-    path("contact", movieViews.contact),
+    path("about/", movieViews.about, name='about'), 
+    path("contact", movieViews.contact, name="contact"),
     path("signup", movieViews.signup, name="signup")
 ]
