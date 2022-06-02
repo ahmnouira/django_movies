@@ -1,12 +1,18 @@
+from turtle import title
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from .models import Movie
 
 # Create your views here.
 
 def home(request: HttpRequest): 
-    term = request.GET.get('searchMovie')
-    print(term)
-    return render(request, "home.html", {'term': term})
+    searchTerm = request.GET.get('s')
+    print("term:", searchTerm)
+    if searchTerm: 
+        movies = Movie.objects.filter(title__icontains=searchTerm)
+    else: 
+        movies  = Movie.objects.all()
+    return render(request, "home.html", {'term': searchTerm, 'movies': movies})
 
 def about(request: HttpRequest): 
     return render(request, "about.html", {'name': "Ahmed Nouira", 'page_name': "About"})
