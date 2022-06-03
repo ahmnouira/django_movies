@@ -143,3 +143,10 @@ MEDIA_URL = "/media/"
 
 # is the absolute filesystem path to the directory that will old user-uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL.replace("/", ""))
+
+# since, the movie.png is not attached to a specific app( it is attached to the project folder),
+# we need to include the moviereviews/static folder to the application settings 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, STATIC_URL.replace("/", "")), 
+    'moviereviews/static/',
+]
