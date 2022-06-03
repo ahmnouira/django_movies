@@ -59,12 +59,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'moviereviews.urls'
 
+# print("BASE_DIR", os.path.join(BASE_DIR, 'templates'))
 
 # helps us return HTML code
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        
+        # we need to register 'templates' folder in our application settings
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,6 +87,7 @@ WSGI_APPLICATION = 'moviereviews.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
