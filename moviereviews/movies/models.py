@@ -10,3 +10,6 @@ class Movie(models.Model):
 
     # blank: mean that this field is optional
     url = models.URLField(blank=True)
+
+    def __str__(self) -> str:
+        return self.title
