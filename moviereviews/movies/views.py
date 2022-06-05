@@ -21,9 +21,9 @@ def contact(request: HttpRequest):
         return HttpResponse('<h3 style="color:green;">Welcome to Contact Page</h3>')
 
 
-def signup(request: HttpRequest):
+def mailing(request: HttpRequest):
     email = request.GET.get('email')
-    return render(request, "signup.html", {'email': email}) 
+    return render(request, "mailing.html", {'email': email}) 
 
 
 def details(request: HttpRequest, movie_id: int): 

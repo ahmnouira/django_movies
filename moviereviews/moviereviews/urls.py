@@ -28,12 +28,12 @@ urlpatterns = [
     # "about" Page not found (404)
     path("about/", movieViews.about, name='about'), 
     path("contact", movieViews.contact, name="contact"),
-    path("signup", movieViews.signup, name="signup"), 
-    
+    path("mailing", movieViews.mailing, name="mailing"), 
     # will forward any requests with "news" to news apps urls.py
     path("news/", include("news.urls")),
     # will forward any requests with 'movie/' to movie apps urls.py
-    path("movie/", include('movies.urls'))
+    path("movie/", include('movies.urls')),
+    path("accounts/", include("accounts.urls"))
 ]
 
 
