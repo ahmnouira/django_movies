@@ -26,7 +26,7 @@ def signup(request: HttpRequest):
     return render(request, "signup.html", {'email': email}) 
 
 
-def detail(request: HttpRequest, movie_id: int): 
+def details(request: HttpRequest, movie_id: int): 
     movie  = get_object_or_404(Movie, pk=movie_id)
     return render(request, 'details.html', {'movie': movie})
 

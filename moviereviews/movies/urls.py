@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import detail
+from .views import details
 
 urlpatterns  = [
-        path('<int:movie_id>', detail, name='detail')
+        path('<int:movie_id>', details, name='details')
 ]
