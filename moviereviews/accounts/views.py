@@ -36,6 +36,9 @@ def signup(request: HttpRequest):
            return _response(request, error="Passwords do not match")
 
 
+def sign_out(request: HttpRequest): 
+    logout(request)
+    return redirect('home')
 
 
 
