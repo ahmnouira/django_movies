@@ -2,7 +2,8 @@ from django.db import IntegrityError
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import  AuthenticationForm 
 from .forms import UserCreateForm
 
 # Create your views here.
@@ -13,7 +14,8 @@ def _response(request: HttpRequest, error = None):
             'error': error
         })
 
-def signup(request: HttpRequest): 
+
+def sign_up(request: HttpRequest): 
     if request.method == "GET": 
        return _response(request=request)
     else: 
@@ -35,6 +37,21 @@ def signup(request: HttpRequest):
         else: 
            return _response(request, error="Passwords do not match")
 
+
+
+def sign_in(request: HttpResponse):
+        if request.method  == "GET": 
+            return render(request, 'login.html', {'form': AuthenticationForm})
+    
+        else: 
+            username  = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request=request, username=username, password=password)
+            if user is None: 
+                return render(request, "login.html", {'form': AuthenticationForm, 'error': "username and password do not match"})
+            else: 
+                login(request, user)
+                return redirect('home')
 
 def sign_out(request: HttpRequest): 
     logout(request)

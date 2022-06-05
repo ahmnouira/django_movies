@@ -12,3 +12,5 @@ class UserCreateForm(UserCreationForm):
             self.fields[fieldname].widget.attrs.update({
                 'class': 'form-control'
             })
+
+
