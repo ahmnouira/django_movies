@@ -31,7 +31,9 @@ urlpatterns = [
     path("signup", movieViews.signup, name="signup"), 
     
     # will forward any requests with "news" to news apps urls.py
-    path("news/", include("news.urls"))
+    path("news/", include("news.urls")),
+    # will forward any requests with 'movie/' to movie apps urls.py
+    path("movie/", include('movies.urls'))
 ]
 
 

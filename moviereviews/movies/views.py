@@ -1,6 +1,6 @@
 from turtle import title
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Movie
 
 # Create your views here.
@@ -26,4 +26,7 @@ def signup(request: HttpRequest):
     return render(request, "signup.html", {'email': email}) 
 
 
-    
+def detail(request: HttpRequest, movie_id: int): 
+    movie  = get_object_or_404(Movie, pk=movie_id)
+    return render(request, 'details.html', {'movie': movie})
+
