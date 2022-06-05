@@ -1,15 +1,15 @@
 from django.db import IntegrityError
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
+from .forms import UserCreateForm
 
 # Create your views here.
 
 def _response(request: HttpRequest, error = None): 
         return render(request, 'signup.html', {
-            'form': UserCreationForm, 
+            'form': UserCreateForm, 
             'error': error
         })
 
