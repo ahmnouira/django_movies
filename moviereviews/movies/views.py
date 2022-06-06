@@ -5,28 +5,30 @@ from .models import Movie
 
 # Create your views here.
 
-def home(request: HttpRequest): 
+
+def home(request: HttpRequest):
     searchTerm = request.GET.get('s')
     print("term:", searchTerm)
-    if searchTerm: 
+    if searchTerm:
         movies = Movie.objects.filter(title__icontains=searchTerm)
-    else: 
-        movies  = Movie.objects.all()
+    else:
+        movies = Movie.objects.all()
     return render(request, "home.html", {'term': searchTerm, 'movies': movies})
 
-def about(request: HttpRequest): 
+
+def about(request: HttpRequest):
     return render(request, "about.html", {'name': "Ahmed Nouira", 'page_name': "About"})
 
-def contact(request: HttpRequest): 
-        return HttpResponse('<h3 style="color:green;">Welcome to Contact Page</h3>')
+
+def contact(request: HttpRequest):
+    return HttpResponse('<h3 style="color:green;">Welcome to Contact Page</h3>')
 
 
 def mailing(request: HttpRequest):
     email = request.GET.get('email')
-    return render(request, "mailing.html", {'email': email}) 
+    return render(request, "mailing.html", {'email': email})
 
 
-def details(request: HttpRequest, movie_id: int): 
-    movie  = get_object_or_404(Movie, pk=movie_id)
+def details(request: HttpRequest, movie_id: int):
+    movie = get_object_or_404(Movie, pk=movie_id)
     return render(request, 'details.html', {'movie': movie})
-
