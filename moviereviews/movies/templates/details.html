@@ -13,6 +13,10 @@
         <p class="card-text">
           <a href="{{movie.url}}" class="btn btn-primary">Movie Link</a>
         </p>
+        {% endif %} {% if user.is_authenticated %}
+        <a href="{% url 'add-review' movie.id %}" class="btn btn-info">
+          Add Review
+        </a>
         {% endif %}
       </div>
     </div>

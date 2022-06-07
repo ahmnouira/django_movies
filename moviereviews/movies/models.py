@@ -21,9 +21,10 @@ class Movie(models.Model):
 class Review(models.Model):
 
     text = models.CharField(max_length=100)
-    watch_agin = models.BooleanField()
+    watch_again = models.BooleanField()
     # when someone creates  this object, the current datetime will be automatically filled in
     # note this makes the field non-editable, once the datetime is set, it is fixed
+    # auto-populated
     date = models.DateTimeField(auto_now_add=True)
     # a user can create multiple reviews, a movie similarly **can have** similarly review
     # for user, the reference is to build-in user model that Django provides for authentication

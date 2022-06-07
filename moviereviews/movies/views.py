@@ -1,7 +1,9 @@
 from turtle import title
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404
-from .models import Movie
+from django.shortcuts import redirect, render, get_object_or_404
+
+from .forms import ReviewForm
+from .models import Movie, Review
 
 # Create your views here.
 
@@ -32,3 +34,28 @@ def mailing(request: HttpRequest):
 def details(request: HttpRequest, movie_id: int):
     movie = get_object_or_404(Movie, pk=movie_id)
     return render(request, 'details.html', {'movie': movie})
+
+
+def add_review(request: HttpRequest, movie_id):
+
+    # get the movie object from the database
+    movie = get_object_or_404(Movie, pk=movie_id)
+
+    # it means that a user is navigating to the create review
+    if request.method == "GET":
+        return render(request, 'add-review.html',
+                      {'form': ReviewForm(), 'movie': movie})
+
+    else:
+        try:
+            form = ReviewForm(request.POST)
+            # commit=False: because we want to specify the user and movie relationship for the review
+            review: Review = form.save(commit=False)
+            review.user = request.user
+            review.movie = movie
+            review.save()
+            return redirect('details', review.movie.id)
+        except ValueError:
+            return render(request, 'add-review.html',
+                          {'form': ReviewForm(), 'error': 'bad data passed in'}
+                          )
