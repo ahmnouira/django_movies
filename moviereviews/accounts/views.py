@@ -3,8 +3,11 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import  AuthenticationForm 
 from .forms import UserCreateForm
+
+
 
 # Create your views here.
 
@@ -53,6 +56,8 @@ def sign_in(request: HttpResponse):
                 login(request, user)
                 return redirect('home')
 
+
+@login_required
 def sign_out(request: HttpRequest): 
     logout(request)
     return redirect('home')

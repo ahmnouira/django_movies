@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-# the settings.py file is an important file controlling, project`s settings, it contains several properties 
+# the settings.py file is an important file controlling, project`s settings, it contains several properties
 
 from pathlib import Path
 import os
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'movies', 
+    'movies',
     'news',
     'accounts'
 ]
@@ -66,7 +66,7 @@ ROOT_URLCONF = 'moviereviews.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        
+
         # we need to register 'templates' folder in our application settings
         'DIRS': [
             os.path.join(BASE_DIR, 'templates')
@@ -146,8 +146,12 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL.replace("/", ""))
 
 # since, the movie.png is not attached to a specific app( it is attached to the project folder),
-# we need to include the moviereviews/static folder to the application settings 
+# we need to include the moviereviews/static folder to the application settings
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, STATIC_URL.replace("/", "")), 
+    os.path.join(BASE_DIR, STATIC_URL.replace("/", "")),
     'moviereviews/static/',
 ]
+
+
+# this redirects a user who is not logged in to the login page when they attempt to access an authorized page
+LOGIN_URL = 'login'

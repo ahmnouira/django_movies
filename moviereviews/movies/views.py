@@ -1,6 +1,7 @@
 from turtle import title
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from .forms import ReviewForm
 from .models import Movie, Review
@@ -38,6 +39,7 @@ def details(request: HttpRequest, movie_id: int):
     return render(request, 'details.html', {'movie': movie, 'reviews': reviews})
 
 
+@login_required
 def add_review(request: HttpRequest, movie_id):
 
     # get the movie object from the database
@@ -63,6 +65,7 @@ def add_review(request: HttpRequest, movie_id):
                           )
 
 
+@login_required
 def delete_review(request: HttpRequest, review_id: int):
     review: Review = get_object_or_404(Review, pk=review_id, user=request.user)
     review.delete()
