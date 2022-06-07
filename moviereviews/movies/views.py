@@ -61,3 +61,9 @@ def add_review(request: HttpRequest, movie_id):
             return render(request, 'add-review.html',
                           {'form': ReviewForm(), 'error': 'bad data passed in'}
                           )
+
+
+def delete_review(request: HttpRequest, review_id: int):
+    review: Review = get_object_or_404(Review, pk=review_id, user=request.user)
+    review.delete()
+    return redirect('details', review.movie.id)

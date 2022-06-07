@@ -26,7 +26,11 @@
                 <p class="card-text">{{review.text}}</p>
                 {% if user.is_authenticated and user == review.user %}
                 <a class="btn btn-primary me-2">Edit</a>
-                <a class="btn btn-danger">Delete</a>
+                <a
+                  href="{% url 'delete-review' review.id %}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
                 {% endif %}
               </li>
               {% endfor %}
