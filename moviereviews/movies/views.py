@@ -70,3 +70,26 @@ def delete_review(request: HttpRequest, review_id: int):
     review: Review = get_object_or_404(Review, pk=review_id, user=request.user)
     review.delete()
     return redirect('details', review.movie.id)
+
+
+@login_required
+def edit_review(request: HttpRequest, review_id: int):
+
+    # we supply the logged-in user to ensure that other users cant access the review if they manually enter the url path in the browser
+    # only the who created this review can update/delete it
+    review: Review = get_object_or_404(Review, pk=review_id, user=request.user)
+
+    if request.method == "GET":
+        form = ReviewForm(instance=review)
+        return render(request, "edit-review.html",
+                      {'review': review, 'form': form})
+
+    else:
+        try:
+            form = ReviewForm(request.POST, instance=review)
+            form.save()
+            return redirect('details', review.movie.id)
+        except ValueError:
+            return render(request, 'edit-review.html', {
+                'review': review, 'form': form, 'error': 'Bad data in form'
+            })
