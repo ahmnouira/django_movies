@@ -1,5 +1,5 @@
 {%extends 'base.html' %} {% block content %}
-<div class="card mb-3">
+<div class="card mb-3 p-4">
   <div class="row g-0">
     <div class="col-md-4">
       <img src="{{movie.image.url}}" class="img-fluid rounded-start" alt="" />
@@ -11,13 +11,35 @@
         <small class="card-text">ID: {{movie.id}}</small>
         {% if movie.url %}
         <p class="card-text">
-          <a href="{{movie.url}}" class="btn btn-primary">Movie Link</a>
+          <a href="{{movie.url}}" class="btn btn-default">Movie Link</a>
         </p>
-        {% endif %} {% if user.is_authenticated %}
-        <a href="{% url 'add-review' movie.id %}" class="btn btn-info">
-          Add Review
-        </a>
         {% endif %}
+        <div>
+          <hr />
+          <div>
+            <h3>Reviews</h3>
+            <ul class="list-group">
+              {% for review in reviews %}
+              <li class="list-group-item pb-3 pt-3">
+                <h5 class="card-title">Review by {{review.user.username}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{review.date}}</h6>
+                <p class="card-text">{{review.text}}</p>
+                {% if user.is_authenticated and user == review.user %}
+                <a class="btn btn-primary me-2">Edit</a>
+                <a class="btn btn-danger">Delete</a>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mt-3">
+            {% if user.is_authenticated %}
+            <a href="{% url 'add-review' movie.id %}" class="btn btn-info">
+              Add Review
+            </a>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
   </div>

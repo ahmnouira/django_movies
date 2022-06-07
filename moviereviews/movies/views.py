@@ -33,7 +33,9 @@ def mailing(request: HttpRequest):
 
 def details(request: HttpRequest, movie_id: int):
     movie = get_object_or_404(Movie, pk=movie_id)
-    return render(request, 'details.html', {'movie': movie})
+    # retrieve reviews for a particular movie only
+    reviews = Review.objects.filter(movie=movie)
+    return render(request, 'details.html', {'movie': movie, 'reviews': reviews})
 
 
 def add_review(request: HttpRequest, movie_id):
