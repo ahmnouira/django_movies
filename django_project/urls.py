@@ -1,4 +1,4 @@
-"""moviereviews URL Configuration
+"""django_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -21,14 +21,13 @@ from django.conf import settings
 from movies import views as movieViews
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', movieViews.home, name="home"), 
+    path('', movieViews.home, name="home"),
     # "about" Page not found (404)
-    path("about/", movieViews.about, name='about'), 
+    path("about/", movieViews.about, name='about'),
     path("contact", movieViews.contact, name="contact"),
-    path("mailing", movieViews.mailing, name="mailing"), 
+    path("mailing", movieViews.mailing, name="mailing"),
     # will forward any requests with "news" to news apps urls.py
     path("news/", include("news.urls")),
     # will forward any requests with 'movie/' to movie apps urls.py
@@ -37,6 +36,5 @@ urlpatterns = [
 ]
 
 
-
 # to enable the sever serve the stored images, serve the static media from Django
-urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
