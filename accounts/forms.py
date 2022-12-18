@@ -11,6 +11,5 @@ class UserCreateForm(UserCreationForm):
         for fieldname in ['username', 'password1', 'password2']:
             # remove help_text
             self.fields[fieldname].help_text = None
-            self.fields[fieldname].widget.attrs.update({
-                'class': 'form-control'
-            })
+            self.fields[fieldname].widget.attrs.update(
+                {'class': 'form-control'})

@@ -20,7 +20,6 @@ from django.conf import settings
 
 from movies import views as movieViews
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', movieViews.home, name="home"),
@@ -34,7 +33,6 @@ urlpatterns = [
     path("movie/", include('movies.urls')),
     path("accounts/", include("accounts.urls"))
 ]
-
 
 # to enable the sever serve the stored images, serve the static media from Django
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
