@@ -1,4 +1,3 @@
-from turtle import title
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -10,17 +9,17 @@ from .models import Movie, Review
 
 
 def home(request: HttpRequest):
-    searchTerm = request.GET.get('s')
+    searchTerm = request.GET.get("s")
     print("term:", searchTerm)
     if searchTerm:
         movies = Movie.objects.filter(title__icontains=searchTerm)
     else:
         movies = Movie.objects.all()
-    return render(request, "home.html", {'term': searchTerm, 'movies': movies})
+    return render(request, "home.html", {"term": searchTerm, "movies": movies})
 
 
 def about(request: HttpRequest):
-    return render(request, "about.html", {'name': "Ahmed Nouira", 'page_name': "About"})
+    return render(request, "about.html", {"name": "Ahmed Nouira", "page_name": "About"})
 
 
 def contact(request: HttpRequest):
@@ -28,15 +27,15 @@ def contact(request: HttpRequest):
 
 
 def mailing(request: HttpRequest):
-    email = request.GET.get('email')
-    return render(request, "mailing.html", {'email': email})
+    email = request.GET.get("email")
+    return render(request, "mailing.html", {"email": email})
 
 
 def details(request: HttpRequest, movie_id: int):
     movie = get_object_or_404(Movie, pk=movie_id)
     # retrieve reviews for a particular movie only
     reviews = Review.objects.filter(movie=movie)
-    return render(request, 'details.html', {'movie': movie, 'reviews': reviews})
+    return render(request, "details.html", {"movie": movie, "reviews": reviews})
 
 
 @login_required
@@ -47,8 +46,9 @@ def add_review(request: HttpRequest, movie_id):
 
     # it means that a user is navigating to the create review
     if request.method == "GET":
-        return render(request, 'add-review.html',
-                      {'form': ReviewForm(), 'movie': movie})
+        return render(
+            request, "add-review.html", {"form": ReviewForm(), "movie": movie}
+        )
 
     else:
         try:
@@ -58,18 +58,20 @@ def add_review(request: HttpRequest, movie_id):
             review.user = request.user
             review.movie = movie
             review.save()
-            return redirect('details', review.movie.id)
+            return redirect("details", review.movie.id)
         except ValueError:
-            return render(request, 'add-review.html',
-                          {'form': ReviewForm(), 'error': 'bad data passed in'}
-                          )
+            return render(
+                request,
+                "add-review.html",
+                {"form": ReviewForm(), "error": "bad data passed in"},
+            )
 
 
 @login_required
 def delete_review(request: HttpRequest, review_id: int):
     review: Review = get_object_or_404(Review, pk=review_id, user=request.user)
     review.delete()
-    return redirect('details', review.movie.id)
+    return redirect("details", review.movie.id)
 
 
 @login_required
@@ -81,15 +83,16 @@ def edit_review(request: HttpRequest, review_id: int):
 
     if request.method == "GET":
         form = ReviewForm(instance=review)
-        return render(request, "edit-review.html",
-                      {'review': review, 'form': form})
+        return render(request, "edit-review.html", {"review": review, "form": form})
 
     else:
         try:
             form = ReviewForm(request.POST, instance=review)
             form.save()
-            return redirect('details', review.movie.id)
+            return redirect("details", review.movie.id)
         except ValueError:
-            return render(request, 'edit-review.html', {
-                'review': review, 'form': form, 'error': 'Bad data in form'
-            })
+            return render(
+                request,
+                "edit-review.html",
+                {"review": review, "form": form, "error": "Bad data in form"},
+            )
